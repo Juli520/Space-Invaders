@@ -76,11 +76,5 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void ChangeNickName(string nickName)
     {
         PhotonNetwork.LocalPlayer.NickName = nickName;
-    } 
-
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        Debug.Log("Player disconnected");
-        PhotonNetwork.LeaveRoom();
     }
 }

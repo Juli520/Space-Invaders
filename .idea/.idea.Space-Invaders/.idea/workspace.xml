@@ -10,6 +10,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Lobby/LobbyHandler.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="201I0ooL4TSiw3LcNVB6u0qG9Aq" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -53,6 +56,7 @@
       <option name="presentableId" value="Default" />
       <updated>1635205448145</updated>
       <workItem from="1635205451134" duration="2632000" />
+      <workItem from="1635278075499" duration="3563000" />
     </task>
     <servers />
   </component>

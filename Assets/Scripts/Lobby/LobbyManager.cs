@@ -11,8 +11,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public static LobbyManager Instance;
     
     private string _roomName = string.Empty;
-
-    // TODO: Destroy object in Start
+    
     private void Awake()
     {
         if (Instance == null)
@@ -61,7 +60,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             return;
         
         RoomOptions options = new RoomOptions();
-        options.MaxPlayers = 4;
+        options.MaxPlayers = 2;
         options.IsOpen = true;
         options.IsVisible = true;
 
@@ -76,5 +75,26 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void ChangeNickName(string nickName)
     {
         PhotonNetwork.LocalPlayer.NickName = nickName;
+    }
+
+    public void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+            Destroy(gameObject);
+    }
+    
+    public string GetRoomName()
+    {
+        return _roomName;
+    }
+    
+    public Photon.Realtime.Player[] GetPlayerList()
+    {
+        return PhotonNetwork.PlayerList;
     }
 }

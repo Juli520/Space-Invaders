@@ -22,7 +22,7 @@ public class LobbyHandler : MonoBehaviourPun
                 continue;
             }
 
-            playerList[i].text = "Player " + i + ": " + myList[i].NickName;
+            playerList[i].text = "Player " + (i + 1) + ": " + myList[i].NickName;
         }
     }
 

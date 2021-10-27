@@ -19,7 +19,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         else
             Destroy(gameObject);        
         
-        DontDestroyOnLoad(this);
+        //DontDestroyOnLoad(this);
     }
 
     private void Start()
@@ -43,7 +43,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     
     public void JoinRoom()
     {
-        if (_roomName == string.Empty || _roomName == "")
+        if (_roomName == string.Empty || _roomName == "" || 
+            PhotonNetwork.LocalPlayer.NickName == "" || 
+            PhotonNetwork.LocalPlayer.NickName == string.Empty)
             return;
         
         PhotonNetwork.JoinRoom(_roomName);
@@ -56,7 +58,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        if (_roomName == string.Empty || _roomName == "")
+        if (_roomName == string.Empty || _roomName == "" || 
+            PhotonNetwork.LocalPlayer.NickName == "" || 
+            PhotonNetwork.LocalPlayer.NickName == string.Empty)
             return;
         
         RoomOptions options = new RoomOptions();
@@ -77,7 +81,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.NickName = nickName;
     }
 
-    public void OnEnable()
+    /*public void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -86,8 +90,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
             Destroy(gameObject);
-    }
-    
+    }*/
+
     public string GetRoomName()
     {
         return _roomName;
@@ -96,5 +100,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public Photon.Realtime.Player[] GetPlayerList()
     {
         return PhotonNetwork.PlayerList;
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

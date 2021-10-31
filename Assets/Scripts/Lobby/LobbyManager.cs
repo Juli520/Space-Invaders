@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
     public static LobbyManager Instance;
+    public string level;
     
     private string _roomName = string.Empty;
     
@@ -30,6 +31,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         DisconnectToServer();
         ConnectToServer();
     }
+
+    public void StartGame()
+    {
+        if (level == string.Empty)
+            return;
+
+        PhotonNetwork.LoadLevel(level);
+    }
+    
     
     public void ConnectToServer()
     {

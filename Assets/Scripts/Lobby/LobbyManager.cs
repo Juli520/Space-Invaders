@@ -37,15 +37,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         ConnectToServer();
     }
 
-
-    public void StartGame()
-    {
-        if (level == string.Empty)
-            return;
-
-        PhotonNetwork.LoadLevel(level);
-    }
-    
     public void ConnectToServer()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -125,14 +116,17 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void CheckPlayerCount()
     {
         if (PhotonNetwork.PlayerList.Length == 2)
-            StartGame();
+            photonView.RPC("StartGame", RpcTarget.All);
         else
             error.SetActive(true);
     }
-
-    private void StartGame()
+    
+    [PunRPC]
+    public void StartGame()
     {
-        PhotonNetwork.LoadLevel(1);
-    }
+        if (level == string.Empty)
+            return;
 
+        PhotonNetwork.LoadLevel(level);
+    }
 }

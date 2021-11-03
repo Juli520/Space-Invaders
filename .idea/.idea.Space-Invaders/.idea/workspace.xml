@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7595daa-dc0e-4613-bed1-3a5090a5be1e" name="Changes" comment="" />
+    <list default="true" id="f7595daa-dc0e-4613-bed1-3a5090a5be1e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Space-Invaders/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Space-Invaders/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main Menu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main Menu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Lobby/LobbyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Lobby/LobbyManager.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -9,9 +17,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Lobby/LobbyHandler.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="201I0ooL4TSiw3LcNVB6u0qG9Aq" />
   <component name="ProjectViewState">
@@ -46,10 +51,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="16088">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="16088" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -69,7 +74,11 @@
       <workItem from="1635278075499" duration="4163000" />
       <workItem from="1635364798658" duration="2473000" />
       <workItem from="1635529998254" duration="1198000" />
-      <workItem from="1635699345582" duration="3490000" />
+      <workItem from="1635536803064" duration="2327000" />
+      <workItem from="1635787837261" duration="5099000" />
+      <workItem from="1635883812948" duration="2663000" />
+      <workItem from="1635897651875" duration="1180000" />
+      <workItem from="1635949824874" duration="5923000" />
     </task>
     <servers />
   </component>
@@ -79,26 +88,19 @@
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Lobby/LobbyHandler.cs</url>
-          <line>17</line>
-          <properties documentPath="S:\PROJECTS\Unity Projects\Unity Repos\Space-Invaders\Assets\Scripts\Lobby\LobbyHandler.cs" initialLine="17" containingFunctionPresentation="method 'Update'">
-            <startOffsets>
-              <option value="407" />
-            </startOffsets>
-            <endOffsets>
-              <option value="408" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -3,44 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
     public static LobbyManager Instance;
+
     public string level;
     
+
     private string _roomName = string.Empty;
-    
+
+    public GameObject error;
+
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
         else
-            Destroy(gameObject);        
-        
+            Destroy(gameObject);
+
         //DontDestroyOnLoad(this);
     }
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex != 0) 
+        if (SceneManager.GetActiveScene().buildIndex != 0)
             return;
-        
+
         DisconnectToServer();
         ConnectToServer();
     }
 
-    public void StartGame()
-    {
-        if (level == string.Empty)
-            return;
-
-        PhotonNetwork.LoadLevel(level);
-    }
-    
-    
     public void ConnectToServer()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -50,17 +46,17 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.Disconnect();
     }
-    
+
     public void JoinRoom()
     {
-        if (_roomName == string.Empty || _roomName == "" || 
-            PhotonNetwork.LocalPlayer.NickName == "" || 
+        if (_roomName == string.Empty || _roomName == "" ||
+            PhotonNetwork.LocalPlayer.NickName == "" ||
             PhotonNetwork.LocalPlayer.NickName == string.Empty)
             return;
-        
+
         PhotonNetwork.JoinRoom(_roomName);
     }
-    
+
     public void LeaveLobby()
     {
         PhotonNetwork.LeaveLobby();
@@ -68,11 +64,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        if (_roomName == string.Empty || _roomName == "" || 
-            PhotonNetwork.LocalPlayer.NickName == "" || 
+        if (_roomName == string.Empty || _roomName == "" ||
+            PhotonNetwork.LocalPlayer.NickName == "" ||
             PhotonNetwork.LocalPlayer.NickName == string.Empty)
             return;
-        
+
         RoomOptions options = new RoomOptions();
         options.MaxPlayers = 2;
         options.IsOpen = true;
@@ -106,7 +102,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         return _roomName;
     }
-    
+
     public Photon.Realtime.Player[] GetPlayerList()
     {
         return PhotonNetwork.PlayerList;
@@ -115,5 +111,22 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void CheckPlayerCount()
+    {
+        if (PhotonNetwork.PlayerList.Length == 2)
+            photonView.RPC("StartGame", RpcTarget.All);
+        else
+            error.SetActive(true);
+    }
+    
+    [PunRPC]
+    public void StartGame()
+    {
+        if (level == string.Empty)
+            return;
+
+        PhotonNetwork.LoadLevel(level);
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Invaders : MonoBehaviour
@@ -86,7 +83,6 @@ public class Invaders : MonoBehaviour
                 break;
             }
         }
-        
     }
 
     private void InvaderKilled()

@@ -11,6 +11,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 {
     public static LobbyManager Instance;
 
+    public string level;
+    
+
     private string _roomName = string.Empty;
 
     public GameObject error;
@@ -34,6 +37,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         ConnectToServer();
     }
 
+
+    public void StartGame()
+    {
+        if (level == string.Empty)
+            return;
+
+        PhotonNetwork.LoadLevel(level);
+    }
+    
     public void ConnectToServer()
     {
         PhotonNetwork.ConnectUsingSettings();

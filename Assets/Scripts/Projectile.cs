@@ -2,7 +2,7 @@
 
 public class Projectile : MonoBehaviour
 {
-    public Vector3 direction;
+    public Vector3 direction = Vector3.up;
     public float speed;
 
     public System.Action destroyed;

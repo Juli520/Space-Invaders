@@ -9,13 +9,12 @@ public class Invaders : MonoBehaviour
     public AnimationCurve speed;
     public Projectile missile;
     public float rateAttack = 1f;
+    public Vector3 direction { get; private set; } = Vector3.right;
     
-    public int amountKilled { get; private set; }
-    public int amountAlive => totalInvaders - amountKilled;
-    public int totalInvaders => rows * colums;
-    public float percentKilled => (float)amountKilled / (float)totalInvaders;
-
-    private Vector3 _direction = Vector2.right;
+    public int AmountKilled { get; private set; }
+    public int AmountAlive => TotalInvaders - AmountKilled;
+    public int TotalInvaders => rows * colums;
+    public float PercentKilled => (float)AmountKilled / (float)TotalInvaders;
 
     private void Awake()
     {
@@ -44,42 +43,56 @@ public class Invaders : MonoBehaviour
 
     private void Update()
     {
-        transform.position += _direction * speed.Evaluate(percentKilled) * Time.deltaTime;
+        float speed = this.speed.Evaluate(PercentKilled);
+        transform.position += direction * speed * Time.deltaTime;
 
         Vector3 leftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero);
         Vector3 rightEdge = Camera.main.ViewportToWorldPoint(Vector3.right);
 
         foreach (Transform invader in transform)
         {
-            if(invader.gameObject.activeInHierarchy)
+            if (!invader.gameObject.activeInHierarchy)
                 continue;
             
-            if(_direction == Vector3.right && invader.position.x >= (rightEdge.x - 1f))
+            if(direction == Vector3.right && invader.position.x >= (rightEdge.x - 1.0f))
+            {
                 AdvanceRow();
-            else if(_direction == Vector3.left && invader.position.x >= (leftEdge.x + 1f))
+                break;
+            }
+            else if(direction == Vector3.left && invader.position.x <= (leftEdge.x + 1.0f))
+            {
                 AdvanceRow();
+                break;
+            }
         }
     }
 
     private void AdvanceRow()
     {
-        _direction.x *= -1f;
-
+        direction = new Vector3(-direction.x, 0.0f, 0.0f);
+        
         Vector3 position = transform.position;
-        position.y -= 1f;
+        position.y -= 1.0f;
         transform.position = position;
     }
 
     private void MissileAttack()
     {
+        int amountAlive = AmountAlive;
+
+        if (amountAlive == 0) {
+            return;
+        }
+
         foreach (Transform invader in transform)
         {
-            if(invader.gameObject.activeInHierarchy)
+            if (!invader.gameObject.activeInHierarchy) {
                 continue;
-            
-            if(Random.value < (1f / (float)amountAlive))
+            }
+
+            if (Random.value < (1.0f / (float)amountAlive))
             {
-                Instantiate(missile, transform.position, Quaternion.identity);
+                Instantiate(missile, invader.position, Quaternion.identity);
                 break;
             }
         }
@@ -87,6 +100,6 @@ public class Invaders : MonoBehaviour
 
     private void InvaderKilled()
     {
-        amountKilled++;
+        AmountKilled++;
     }
 }

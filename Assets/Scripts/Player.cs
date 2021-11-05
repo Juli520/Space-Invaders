@@ -6,7 +6,7 @@ public class Player : MonoBehaviourPun
 {
     public float speed = 5f;
     public Projectile laser;
-    private bool _laserActive;
+    public bool laserActive;
 
     private void Update()
     {
@@ -23,16 +23,13 @@ public class Player : MonoBehaviourPun
 
     private void Shoot()
     {
-        if (!_laserActive)
-        {
-            Projectile projectile = Instantiate(laser, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
-            projectile.destroyed = LaserDestroyed;
-            _laserActive = true;
-        }
+        if (!laserActive)
+            PhotonNetwork.Instantiate(laser.name, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+        
     }
 
-    private void LaserDestroyed()
+    public void LaserDestroyed()
     {
-        _laserActive = false;
+        laserActive = false;
     }
 }

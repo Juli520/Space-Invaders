@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Invaders : MonoBehaviour
 {
     public Invador[] prefabs;
-    public int rows = 5;
-    public int colums = 11;
+    public int rows;
+    public int colums;
     public AnimationCurve speed;
     public Projectile missile;
     public float rateAttack = 1f;
@@ -80,19 +81,17 @@ public class Invaders : MonoBehaviour
     {
         int amountAlive = AmountAlive;
 
-        if (amountAlive == 0) {
+        if (amountAlive == 0) 
             return;
-        }
-
+        
         foreach (Transform invader in transform)
         {
-            if (!invader.gameObject.activeInHierarchy) {
+            if (!invader.gameObject.activeInHierarchy) 
                 continue;
-            }
-
+            
             if (Random.value < (1.0f / (float)amountAlive))
             {
-                Instantiate(missile, invader.position, Quaternion.identity);
+                PhotonNetwork.Instantiate(missile.name, invader.position, Quaternion.identity);
                 break;
             }
         }

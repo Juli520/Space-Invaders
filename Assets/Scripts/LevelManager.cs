@@ -11,9 +11,9 @@ public class LevelManager : MonoBehaviourPun
     
     private void Start()
     {
-        if (PhotonNetwork.LocalPlayer.ActorNumber == 0)
+        if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
             PhotonNetwork.Instantiate(player.name, spawnPoint[0].position, Quaternion.identity);
-        else if(PhotonNetwork.LocalPlayer.ActorNumber == 1)
+        else if(PhotonNetwork.LocalPlayer.ActorNumber == 2)
             PhotonNetwork.Instantiate(player.name, spawnPoint[1].position, Quaternion.identity);
     }
 }

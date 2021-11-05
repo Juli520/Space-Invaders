@@ -1,11 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     public Vector3 direction = Vector3.up;
     public float speed;
+    private Player _player;
 
     public System.Action destroyed;
+
+    private void Awake()
+    {
+        _player = FindObjectOfType<Player>();
+    }
 
     private void Update()
     {
@@ -13,9 +20,14 @@ public class Projectile : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other)
-    {
+    {   
+        if (other.gameObject.layer == 8)
+        {
+            _player.laserActive = true;
+        }
+        
         if(destroyed != null)
-            destroyed.Invoke();
+            _player.LaserDestroyed();
         Destroy(gameObject);
     }
 }

@@ -36,6 +36,11 @@ public class EnemyShip : MonoBehaviourPun
         else
             _currentFireRate -= Time.deltaTime;
     }
+
+    public void SetSide(bool goRight)
+    {
+        _goRight = goRight;
+    }
     
     private void OnTriggerEnter2D(Collider2D other)
     {

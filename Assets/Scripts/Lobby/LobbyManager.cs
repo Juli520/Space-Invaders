@@ -115,10 +115,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void CheckPlayerCount()
     {
-        if (PhotonNetwork.PlayerList.Length == 2)
+        photonView.RPC("StartGame", RpcTarget.All);
+        /*if (PhotonNetwork.PlayerList.Length == 2)
             photonView.RPC("StartGame", RpcTarget.All);
         else
-            error.SetActive(true);
+            error.SetActive(true);*/
     }
     
     [PunRPC]

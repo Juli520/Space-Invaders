@@ -20,6 +20,11 @@ public class EnemyShip : MonoBehaviourPun
         _currentFireRate = fireRate;
     }
 
+    private void Start()
+    {
+        killed += Invaders.Instance.InvaderKilled;
+    }
+
     private void Update()
     {
         transform.position += _goRight ? 
@@ -47,6 +52,10 @@ public class EnemyShip : MonoBehaviourPun
         if (other.gameObject.layer == 9)
         {
             killed.Invoke();
+            gameObject.SetActive(false);
+        }
+        else if (other.gameObject.layer == 12)
+        {
             gameObject.SetActive(false);
         }
     }

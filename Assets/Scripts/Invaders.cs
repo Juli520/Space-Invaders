@@ -4,6 +4,8 @@ using Random = UnityEngine.Random;
 
 public class Invaders : MonoBehaviour
 {
+    public static Invaders Instance = null; 
+    
     public Invador[] prefabs;
     public int rows;
     public int colums;
@@ -19,6 +21,9 @@ public class Invaders : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+        
         for (int row = 0; row < rows; row++)
         {
             float width = 2f * (colums - 1);
@@ -97,7 +102,7 @@ public class Invaders : MonoBehaviour
         }
     }
 
-    private void InvaderKilled()
+    public void InvaderKilled()
     {
         AmountKilled++;
     }

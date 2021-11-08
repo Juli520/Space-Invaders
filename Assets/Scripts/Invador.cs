@@ -9,7 +9,7 @@ public class Invador : MonoBehaviour
         if (other.gameObject.layer == 9)
         {
             killed.Invoke();
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

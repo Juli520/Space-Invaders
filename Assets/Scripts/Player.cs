@@ -25,7 +25,6 @@ public class Player : MonoBehaviourPun
     {
         if (!laserActive)
             PhotonNetwork.Instantiate(laser.name, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
-        
     }
 
     public void LaserDestroyed()

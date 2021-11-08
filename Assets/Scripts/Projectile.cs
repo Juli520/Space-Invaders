@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
@@ -22,10 +21,8 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {   
         if (other.gameObject.layer == 8)
-        {
             _player.laserActive = true;
-        }
-        
+
         if(destroyed != null)
             _player.LaserDestroyed();
         Destroy(gameObject);

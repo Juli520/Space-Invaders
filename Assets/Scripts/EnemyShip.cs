@@ -9,9 +9,10 @@ public class EnemyShip : MonoBehaviourPun
 {
     public float speed;
     public float fireRate;
+    public int points = 500;
     public Projectile missile;
     public Action killed;
-    
+
     [SerializeField] [HideInInspector] private float _currentFireRate;
     [SerializeField] [HideInInspector] private bool _goRight;
 
@@ -52,6 +53,7 @@ public class EnemyShip : MonoBehaviourPun
         if (other.gameObject.layer == 9)
         {
             killed.Invoke();
+            ScoreManager.Instance.AddScore(points);
             gameObject.SetActive(false);
         }
         else if (other.gameObject.layer == 12)

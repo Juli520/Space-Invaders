@@ -10,13 +10,9 @@ using UnityEngine.SceneManagement;
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
     public static LobbyManager Instance;
-
     public string level;
-    
-
-    private string _roomName = string.Empty;
-
     public GameObject error;
+    private string _roomName = string.Empty;
 
     private void Awake()
     {

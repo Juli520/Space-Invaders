@@ -4,6 +4,8 @@ using Random = UnityEngine.Random;
 
 public class Invaders : MonoBehaviourPun
 {
+    public static Invaders Instance = null; 
+    
     public Invador[] prefabs;
     public int rows;
     public int colums;
@@ -21,7 +23,8 @@ public class Invaders : MonoBehaviourPun
     private void Awake()
     {
         if(!photonView.IsMine) return;
-
+        if (Instance == null)
+            Instance = this;
         for (int row = 0; row < rows; row++)
         {
             float width = 2f * (colums - 1);
@@ -102,7 +105,7 @@ public class Invaders : MonoBehaviourPun
         }
     }
 
-    private void InvaderKilled()
+    public void InvaderKilled()
     {
         AmountKilled++;
     }

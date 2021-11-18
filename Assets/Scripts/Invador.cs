@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Invador : MonoBehaviourPun
 {
+    public int points = 100;
     public System.Action killed;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -13,6 +14,7 @@ public class Invador : MonoBehaviourPun
         {
             killed.Invoke();
             
+            ScoreManager.Instance.AddScore(points);
             PhotonNetwork.Destroy(gameObject);
         }
     }

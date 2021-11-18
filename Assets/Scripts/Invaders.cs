@@ -2,7 +2,7 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Invaders : MonoBehaviour
+public class Invaders : MonoBehaviourPun
 {
     public static Invaders Instance = null; 
     
@@ -12,6 +12,7 @@ public class Invaders : MonoBehaviour
     public AnimationCurve speed;
     public Projectile missile;
     public float rateAttack = 1f;
+    [SerializeField, HideInInspector] private Invador _invador;
     public Vector3 direction { get; private set; } = Vector3.right;
     
     public int AmountKilled { get; private set; }
@@ -21,9 +22,9 @@ public class Invaders : MonoBehaviour
 
     private void Awake()
     {
+        if(!photonView.IsMine) return;
         if (Instance == null)
             Instance = this;
-        
         for (int row = 0; row < rows; row++)
         {
             float width = 2f * (colums - 1);
@@ -33,11 +34,13 @@ public class Invaders : MonoBehaviour
 
             for (int col = 0; col < colums; col++)
             {
-                Invador invader = Instantiate(prefabs[row], transform);
-                invader.killed += InvaderKilled;
+                _invador = PhotonNetwork.Instantiate(prefabs[row].name, photonView.transform.position, Quaternion.identity).GetComponent<Invador>();
+                _invador.SetParent();
+                _invador.killed += InvaderKilled;
+                
                 Vector3 position = rowPosition;
                 position.x += col * 2f;
-                invader.transform.localPosition = position;
+                _invador.photonView.transform.localPosition = position;
             }
         }
     }

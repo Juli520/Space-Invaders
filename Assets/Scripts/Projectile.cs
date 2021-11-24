@@ -5,9 +5,8 @@ public class Projectile : MonoBehaviourPun
 {
     public Vector3 direction = Vector3.up;
     public float speed;
+    public System.Action<Projectile> destroyed;
     private Player _player;
-
-    public System.Action destroyed;
 
     private void Awake()
     {
@@ -25,12 +24,12 @@ public class Projectile : MonoBehaviourPun
     {
         if(!photonView.IsMine) return;
         
-        if (other.gameObject.layer == 8)
-            _player.laserActive = true;
-
-        if(destroyed != null)
-            _player.LaserDestroyed();
-     
-        PhotonNetwork.Destroy(gameObject);
+        if (other.gameObject.layer == 11 || other.gameObject.layer == 12 || other.gameObject.layer == 13)
+        {
+            //destroyed.Invoke(this);
+            PhotonNetwork.Destroy(gameObject);
+        }
+        
+        _player.LaserDestroyed(this);
     }
 }

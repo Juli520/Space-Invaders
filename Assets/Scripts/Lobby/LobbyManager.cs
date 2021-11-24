@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Photon.Pun;
+﻿using Photon.Pun;
 using Photon.Realtime;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,7 +15,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (Instance == null)
             Instance = this;
         else
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
 
         //DontDestroyOnLoad(this);
     }
@@ -111,10 +107,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void CheckPlayerCount()
     {
-        if (PhotonNetwork.PlayerList.Length == 2)
-            photonView.RPC("StartGame", RpcTarget.All);
-        else
-            error.SetActive(true);
+       //if (PhotonNetwork.PlayerList.Length == 2)
+       //    photonView.RPC("StartGame", RpcTarget.All);
+       //else
+       //    error.SetActive(true);
+        
+        photonView.RPC("StartGame", RpcTarget.All);
     }
     
     [PunRPC]

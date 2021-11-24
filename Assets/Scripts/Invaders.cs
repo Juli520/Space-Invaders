@@ -7,14 +7,18 @@ public class Invaders : MonoBehaviourPun
     public static Invaders Instance = null; 
     
     public Invador[] prefabs;
+    public AnimationCurve speed;
+    public Vector3 direction { get; private set; } = Vector3.right;
+    public System.Action killed;
+    public System.Action<EnemyShip> killedShip;
+    [SerializeField, HideInInspector] private Invador _invador;
+    
     public int rows;
     public int colums;
-    public AnimationCurve speed;
+    
     public Projectile missile;
     public float rateAttack = 1f;
-    [SerializeField, HideInInspector] private Invador _invador;
-    public Vector3 direction { get; private set; } = Vector3.right;
-    
+
     public int AmountKilled { get; private set; }
     public int AmountAlive => TotalInvaders - AmountKilled;
     public int TotalInvaders => rows * colums;
@@ -23,8 +27,10 @@ public class Invaders : MonoBehaviourPun
     private void Awake()
     {
         if(!photonView.IsMine) return;
+        
         if (Instance == null)
             Instance = this;
+        
         for (int row = 0; row < rows; row++)
         {
             float width = 2f * (colums - 1);
@@ -108,5 +114,12 @@ public class Invaders : MonoBehaviourPun
     public void InvaderKilled()
     {
         AmountKilled++;
+        //killed.Invoke();
+    }   
+    
+    public void ShipKilled(EnemyShip enemyShip)
+    {
+        AmountKilled++;
+        //killedShip(enemyShip);
     }
 }

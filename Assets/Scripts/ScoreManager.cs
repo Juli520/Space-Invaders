@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Photon.Pun;
 using TMPro;
 using UnityEngine;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : MonoBehaviourPun
 {
     public static ScoreManager Instance = null;
 
@@ -29,6 +27,12 @@ public class ScoreManager : MonoBehaviour
     }
 
     public void AddScore(int points)
+    {
+        photonView.RPC("AddScoreRPC", RpcTarget.All, points);
+    }
+
+    [PunRPC]
+    public void AddScoreRPC(int points)
     {
         _score += points;
     }

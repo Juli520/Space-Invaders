@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using Random = System.Random;
@@ -28,6 +26,8 @@ public class ShipSpawner : MonoBehaviourPun
 
     private void SpawnShip()
     {
+        if(!photonView.IsMine) return;
+        
         bool goRight = new Random().Next(2) == 1;
         
         GameObject enemy =  PhotonNetwork.Instantiate(ship.name, goRight ? spawnLocations[0].position : spawnLocations[1].position, Quaternion.identity);

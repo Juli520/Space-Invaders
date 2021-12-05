@@ -13,6 +13,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public string level;
     public string menu;
     public GameObject error;
+    public GameObject continueButton;
     private string _roomName = string.Empty;
 
     private void Awake()
@@ -28,7 +29,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (SceneManager.GetActiveScene().buildIndex != 0)
             return;
 
-        DisconnectToServer();
+        OnConnected();
         ConnectToServer();
     }
 
@@ -116,6 +117,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public override void OnConnected()
     {
+        if (PhotonNetwork.IsConnected)
+            continueButton.SetActive(true);    
     }
 
     public void MainMenu()

@@ -7,6 +7,12 @@ public class Player : MonoBehaviourPun
     public float speed = 5f;
     public Projectile laser;
     public bool laserActive;
+    private LevelManager _levelManager;
+
+    private void Awake()
+    {
+        _levelManager = FindObjectOfType<LevelManager>();
+    }
 
     private void Update()
     {
@@ -30,5 +36,28 @@ public class Player : MonoBehaviourPun
     public void LaserDestroyed()
     {
         laserActive = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(!photonView.IsMine) return;
+        
+       if (other.gameObject.layer == 11)
+        {
+            _levelManager.SumPlayers();
+            PhotonNetwork.Destroy(gameObject);
+        }
+    }
+
+    public void DestroyPlayer()
+    {
+        photonView.RPC("DestroyPlayerRPC", photonView.Owner);
+    }
+
+    [PunRPC]
+    public void DestroyPlayerRPC()
+    {
+        _levelManager.SumPlayers();
+        PhotonNetwork.Destroy(gameObject);
     }
 }

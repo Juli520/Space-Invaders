@@ -11,7 +11,7 @@ public class ShipSpawner : MonoBehaviourPun
     public EnemyShip ship;
     public List<Transform> spawnLocations;
 
-    [SerializeField, HideInInspector] private float _currentSpawnTime;
+    public float _currentSpawnTime;
 
     private void Awake()
     {
@@ -28,6 +28,8 @@ public class ShipSpawner : MonoBehaviourPun
 
     private void SpawnShip()
     {
+        if(!photonView.IsMine) return;
+        
         bool goRight = new Random().Next(2) == 1;
         
         GameObject enemy =  PhotonNetwork.Instantiate(ship.name, goRight ? spawnLocations[0].position : spawnLocations[1].position, Quaternion.identity);

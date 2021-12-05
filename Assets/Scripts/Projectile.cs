@@ -5,14 +5,7 @@ public class Projectile : MonoBehaviourPun
 {
     public Vector3 direction = Vector3.up;
     public float speed;
-    private Player _player;
-
-    public System.Action destroyed;
-
-    private void Awake()
-    {
-        _player = FindObjectOfType<Player>();
-    }
+    private int _damage = 1;
 
     private void Update()
     {
@@ -24,13 +17,30 @@ public class Projectile : MonoBehaviourPun
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(!photonView.IsMine) return;
-        
-        if (other.gameObject.layer == 8)
-            _player.laserActive = true;
 
-        if(destroyed != null)
-            _player.LaserDestroyed();
-     
-        PhotonNetwork.Destroy(gameObject);
+        if (other.gameObject.layer == 8)
+        {
+            Player player = other.gameObject.GetComponent<Player>();
+            player.DestroyPlayer();
+            PhotonNetwork.Destroy(gameObject);
+        }
+        else if (other.gameObject.layer == 11)
+        {
+            Invador invador = other.gameObject.GetComponent<Invador>();
+            invador.DestroyInvador();
+            PhotonNetwork.Destroy(gameObject);
+        }
+        else if (other.gameObject.layer == 13)
+        {
+            Bunker bunker = other.gameObject.GetComponent<Bunker>();
+            bunker.TakeDamage(_damage);
+            PhotonNetwork.Destroy(gameObject);
+        }
+        else if (other.gameObject.layer == 14)
+        {
+            EnemyShip ship = other.gameObject.GetComponent<EnemyShip>();
+            ship.DestroyShip();
+            PhotonNetwork.Destroy(gameObject);
+        }
     }
 }

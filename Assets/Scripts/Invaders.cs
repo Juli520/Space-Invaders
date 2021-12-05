@@ -23,8 +23,10 @@ public class Invaders : MonoBehaviourPun
     private void Awake()
     {
         if(!photonView.IsMine) return;
+        
         if (Instance == null)
             Instance = this;
+        
         for (int row = 0; row < rows; row++)
         {
             float width = 2f * (colums - 1);
@@ -36,7 +38,6 @@ public class Invaders : MonoBehaviourPun
             {
                 _invador = PhotonNetwork.Instantiate(prefabs[row].name, photonView.transform.position, Quaternion.identity).GetComponent<Invador>();
                 _invador.SetParent();
-                _invador.killed += InvaderKilled;
                 
                 Vector3 position = rowPosition;
                 position.x += col * 2f;
@@ -52,6 +53,8 @@ public class Invaders : MonoBehaviourPun
 
     private void Update()
     {
+        if(!photonView.IsMine) return;
+        
         float speed = this.speed.Evaluate(PercentKilled);
         transform.position += direction * speed * Time.deltaTime;
 

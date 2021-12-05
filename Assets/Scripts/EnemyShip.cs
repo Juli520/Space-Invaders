@@ -11,23 +11,14 @@ public class EnemyShip : MonoBehaviourPun
     public float fireRate;
     public int points = 500;
     public Projectile missile;
-    public Action killed;
-
+    
     [SerializeField] [HideInInspector] private float _currentFireRate;
     [SerializeField] [HideInInspector] private bool _goRight;
-
-    private void Awake()
-    {
-        _currentFireRate = fireRate;
-    }
-
-    private void Start()
-    {
-        killed += Invaders.Instance.InvaderKilled;
-    }
-
+    
     private void Update()
     {
+        if(!photonView.IsMine) return;
+        
         transform.position += _goRight ? 
             Vector3.right * speed * Time.deltaTime : 
             Vector3.left * speed * Time.deltaTime;
@@ -38,7 +29,10 @@ public class EnemyShip : MonoBehaviourPun
     private void Shoot()
     {
         if (_currentFireRate <= 0)
-            PhotonNetwork.Instantiate(missile.name, transform.position, Quaternion.identity);
+        {
+            PhotonNetwork.Instantiate(missile.name, new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z), Quaternion.identity);
+            _currentFireRate = fireRate;
+        }
         else
             _currentFireRate -= Time.deltaTime;
     }
@@ -50,15 +44,21 @@ public class EnemyShip : MonoBehaviourPun
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer == 9)
-        {
-            killed.Invoke();
-            ScoreManager.Instance.AddScore(points);
-            gameObject.SetActive(false);
-        }
-        else if (other.gameObject.layer == 12)
-        {
-            gameObject.SetActive(false);
-        }
+        if(!photonView.IsMine) return;
+        
+        if (other.gameObject.layer == 12)
+            PhotonNetwork.Destroy(gameObject);
+    }
+
+    public void DestroyShip()
+    {
+        ScoreManager.Instance.AddScore(points);
+        photonView.RPC("DestroyShipRPC", photonView.Owner);
+    }
+
+    [PunRPC]
+    public void DestroyShipRPC()
+    {
+        PhotonNetwork.Destroy(gameObject);
     }
 }

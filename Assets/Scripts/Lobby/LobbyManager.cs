@@ -11,6 +11,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 {
     public static LobbyManager Instance;
     public string level;
+    public string menu;
     public GameObject error;
     private string _roomName = string.Empty;
 
@@ -19,9 +20,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (Instance == null)
             Instance = this;
         else
-            Destroy(gameObject);
-
-        //DontDestroyOnLoad(this);
+            PhotonNetwork.Destroy(gameObject);
     }
 
     private void Start()
@@ -83,17 +82,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.NickName = nickName;
     }
 
-    /*public void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-            Destroy(gameObject);
-    }*/
-
     public string GetRoomName()
     {
         return _roomName;
@@ -124,5 +112,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             return;
 
         PhotonNetwork.LoadLevel(level);
+    }
+
+    public override void OnConnected()
+    {
+    }
+
+    public void MainMenu()
+    {
+        PhotonNetwork.Disconnect();
+        PhotonNetwork.LoadLevel(menu);
     }
 }

@@ -36,12 +36,13 @@ public class LevelManager : MonoBehaviourPun
 
     private void Update()
     {
+        if(!photonView.IsMine) return;
+        
         if(_invaders.AmountAlive == 0)
             photonView.RPC("LoadWinSceneRPC", RpcTarget.All);
         
         if(playersDead == 2)
             photonView.RPC("LoadLoseSceneRPC", RpcTarget.All);
-        
     }
 
     public void SumPlayers()
